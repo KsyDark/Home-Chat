@@ -60,12 +60,27 @@ h1 {
   justify-content:center;
   margin-top:5px;
 }
+
+/* Поле имени маленькое */
 #chat-form input[type=text] {
   padding:3px;
   font-size:14px;
   border:1px solid #000080;
   border-radius:3px;
+  width:120px;
 }
+
+/* Поле сообщения многострочное */
+#chat-form textarea {
+  padding:3px;
+  font-size:14px;
+  border:1px solid #000080;
+  border-radius:3px;
+  width:300px;
+  height:60px;
+  resize:none;
+}
+
 #chat-form button {
   background: linear-gradient(#fff,#ccc);
   border:1px solid #000080;
@@ -96,6 +111,7 @@ h1 {
   Домашний чат
   <button id="minimize-btn" style="float:right;font-size:12px;padding:0 5px;margin:0;cursor:pointer;border:1px solid #000080;border-radius:3px;background:#fff;">–</button>
 </h1>
+
 <div id="chatbox"></div>
 
 <div id="smileys" style="text-align:center; margin-bottom:5px;">
@@ -108,8 +124,8 @@ h1 {
 </div>
 
 <form id="chat-form">
-  <input type="text" id="username" placeholder="Имя" style="width:120px">
-  <input type="text" id="msg" placeholder="Сообщение" style="width:300px">
+  <input type="text" id="username" placeholder="Имя">
+  <textarea id="msg" placeholder="Сообщение"></textarea>
   <button>Отправить</button>
 </form>
 </div>
@@ -241,6 +257,7 @@ document.addEventListener('visibilitychange', ()=>{
 
 setInterval(checkNewMessages, 500);
 
+// Отправка сообщений
 document.getElementById('chat-form').onsubmit = async e => {
     e.preventDefault();
     const u = document.getElementById('username').value.trim();
@@ -253,6 +270,15 @@ document.getElementById('chat-form').onsubmit = async e => {
     document.getElementById('msg').value='';
     loadChat();
 };
+
+// Shift+Enter для переноса строки, Enter для отправки
+const msgField = document.getElementById('msg');
+msgField.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    document.getElementById('chat-form').requestSubmit();
+  }
+});
 </script>
 </body>
 </html>
