@@ -1,0 +1,11 @@
+sudo apt install php libapache2-mod-php -y
+
+Права на каталог
+sudo chown -R www-data:www-data /var/www/html/chat
+sudo chmod -R 755 /var/www/html
+
+Права на файлы
+sudo chown root:root /var/www/html/chat/*
+sudo chown www-data:www-data /var/www/html/chat/messages.txt
+sudo find /var/www/html/chat -type f -exec chmod 644 {} \;
+sudo chmod 664 /var/www/html/chat/messages.txt
