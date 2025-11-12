@@ -68,6 +68,7 @@ h1 {
   border:1px solid #000080;
   border-radius:3px;
   width:120px;
+  height:20px;
 }
 
 /* Поле сообщения многострочное */
